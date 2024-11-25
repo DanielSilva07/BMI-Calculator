@@ -15,13 +15,14 @@ Getting all history from the Database.
 Body Return:
 
 [
-    { 
+    {  
+    
         "id": "6744de481760d52ba08e03a4",
         "nome": "Agnes",
         "altura": 1.9,
         "peso": 65.0,
         "imc": 18.005540166204987
-    }
+    },
 
     
     {
@@ -32,7 +33,6 @@ Body Return:
         "imc": 21.971335857220122
     }
 ]
-
 
 
 # NGINX
