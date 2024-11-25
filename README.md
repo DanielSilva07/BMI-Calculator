@@ -8,3 +8,8 @@ BMI: Body Mass Index, a measure of body fat based on height and weight.
 POST /bmi/calculate: http://localhost:80/bmi/calculate
 
 GET /bmi/history: http://localhost:80/bmi/history
+
+
+
+# NGINX
+The project to implement a server proxy using an NGINX server and should be considered for demonstration or testing purposes only.
