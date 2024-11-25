@@ -1,0 +1,6 @@
+spring:
+  data:
+    mongodb2-imc:
+      database: cadastro
+      host: mongodb2-imc
+      port: 27017
