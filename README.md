@@ -7,4 +7,4 @@ BMI: Body Mass Index, a measure of body fat based on height and weight.
 
 POST /bmi/calculate: http://localhost:80/bmi/calculate
 
-GET /bmi/history
+GET /bmi/history: http://localhost:80/bmi/history
