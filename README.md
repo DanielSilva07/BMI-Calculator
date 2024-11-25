@@ -48,3 +48,6 @@ Body Return:
 
 # NGINX
 The project to implement a server proxy using an NGINX server and should be considered for demonstration or testing purposes only.
+
+![Screenshot from 2024-11-25 19-11-38](https://github.com/user-attachments/assets/dbf78c24-7fba-4ad3-9ed2-0a68ac6df7a8)
+
