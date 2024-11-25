@@ -5,6 +5,6 @@ BMI: Body Mass Index, a measure of body fat based on height and weight.
 
 # API Endpoints
 
-POST /bmi/calculate
+POST /bmi/calculate: http://localhost:80/bmi/calculate
 
 GET /bmi/history
