@@ -50,7 +50,7 @@ Body Return:
 
 
 # NGINX
-The project to implement a server proxy using an NGINX server and should be considered for demonstration or testing purposes only.
+The project to implement a reverse proxy using an NGINX server and should be considered for demonstration or testing purposes only.
 
 A reverse proxy works by intercepting requests from clients, forwarding them to the appropriate server, and then returning the server's response to the client
 
