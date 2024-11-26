@@ -3,6 +3,9 @@ The "BMI Calculator" project will provide users with a quick and easy tool to ca
 
 BMI: Body Mass Index, a measure of body fat based on height and weight.
 
+ # Use Cases
+ User Inputs Height and Weight: A user enters their height and weight and calculates their BMI.
+
 
 # API Endpoints
 
