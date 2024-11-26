@@ -1,0 +1,6 @@
+/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/ImcApplication.java
+/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/controller/Controller.java
+/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/dto/ClienteDTO.java
+/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/model/Cliente.java
+/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/repository/ClienteRepository.java
+/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/service/ClienteService.java

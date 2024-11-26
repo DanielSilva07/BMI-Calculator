@@ -1,0 +1,6 @@
+com/danielsilva/imcApplication/model/Cliente.class
+com/danielsilva/imcApplication/ImcApplication.class
+com/danielsilva/imcApplication/repository/ClienteRepository.class
+com/danielsilva/imcApplication/dto/ClienteDTO.class
+com/danielsilva/imcApplication/service/ClienteService.class
+com/danielsilva/imcApplication/controller/Controller.class
