@@ -19,6 +19,8 @@ POST /bmi/calculate: http://localhost:80/bmi/calculate
     
 }
 
+Body Return:
+
 { 
 
     "id": "67465d01e30c8f3f011a5c55",
