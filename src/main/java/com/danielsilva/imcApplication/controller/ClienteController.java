@@ -3,7 +3,9 @@ package com.danielsilva.imcApplication.controller;
 import com.danielsilva.imcApplication.dto.ClienteDTO;
 import com.danielsilva.imcApplication.model.Cliente;
 import com.danielsilva.imcApplication.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,12 +19,12 @@ public class Controller {
         this.service = service;
     }
 
-    @PostMapping("/calculate")
-    public ResponseEntity<Cliente> save(@RequestBody ClienteDTO clienteDTO ){
+    @PostMapping()
+    public ResponseEntity<Cliente> save(@Valid @RequestBody ClienteDTO clienteDTO ){
         return ResponseEntity.status(201).body(service.save(clienteDTO));
     }
 
-    @GetMapping("/history")
+    @GetMapping()
     public ResponseEntity<List<Cliente>>getAll(){
         return ResponseEntity.ok().body(service.getAll());
     }
