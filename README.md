@@ -10,13 +10,20 @@ POST /bmi/calculate: http://localhost:80/bmi/calculate
 
 {
 
-    "id": "6744e82355b22b16fe8fa5dd",
-    "nome": "Geysiane",
-    "altura": 1.72,
-    "peso": 65.0,
-    "imc": 21.971335857220122
+    "nome":"Melquisedeque",
+    "altura":"1.72",
+    "peso":"80"
+
 }
 
+{
+
+    "id": "67465d01e30c8f3f011a5c55",
+    "nome": "Melquisedeque",
+    "altura": 1.72,
+    "peso": 80.0,
+    "imc": 27.041644131963228
+}
 
 
 GET /bmi/history: http://localhost:80/bmi/history

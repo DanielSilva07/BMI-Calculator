@@ -1,6 +1,8 @@
-/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/ImcApplication.java
-/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/controller/Controller.java
-/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/dto/ClienteDTO.java
-/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/model/Cliente.java
-/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/repository/ClienteRepository.java
-/home/danielsilva/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/service/ClienteService.java
+/home/daniel-silva/Documentos/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/ImcApplication.java
+/home/daniel-silva/Documentos/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/controller/ClienteController.java
+/home/daniel-silva/Documentos/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/dto/ClienteDTO.java
+/home/daniel-silva/Documentos/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/infra/RabbitMQConfig.java
+/home/daniel-silva/Documentos/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/model/ClienteModel.java
+/home/daniel-silva/Documentos/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/repository/ClienteRepository.java
+/home/daniel-silva/Documentos/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/service/ClienteService.java
+/home/daniel-silva/Documentos/ideaProjects/imcApplication /imcApplication/src/main/java/com/danielsilva/imcApplication/service/NotificationRabbitService.java

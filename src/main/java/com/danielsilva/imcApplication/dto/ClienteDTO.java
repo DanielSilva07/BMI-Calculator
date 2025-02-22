@@ -1,5 +1,7 @@
 package com.danielsilva.imcApplication.dto;
 
-public record ClienteDTO(String nome , Double imc , Double peso , Double altura){
+import jakarta.validation.Valid;
+
+public record ClienteDTO(@Valid String nome , Double imc , Double peso , Double altura){
 
 }
