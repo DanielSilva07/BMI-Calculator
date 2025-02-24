@@ -1,7 +1,30 @@
 package com.danielsilva.imcApplication.dto;
 
-import jakarta.validation.Valid;
+import lombok.*;
 
-public record ClienteDTO(@Valid String nome , Double imc , Double peso , Double altura){
+@Getter @Setter
+@Data
+@NoArgsConstructor
+public class ClienteDTO {
+
+    public String id;
+
+    public String nome;
+
+    public Double altura;
+
+    public Double peso ;
+
+    public Double imc;
+
+
+    /**
+     * @return metodo que retorna o valor do imc
+     */
+    public Double imcCalculator(){
+        imc = ( peso / (Math.pow(altura ,2)));
+        return imc;
+    }
+
 
 }

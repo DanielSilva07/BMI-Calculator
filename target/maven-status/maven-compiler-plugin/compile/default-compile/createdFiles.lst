@@ -1,6 +1,0 @@
-com/danielsilva/imcApplication/infra/RabbitMQConfig.class
-com/danielsilva/imcApplication/ImcApplication.class
-com/danielsilva/imcApplication/service/NotificationRabbitService.class
-com/danielsilva/imcApplication/repository/ClienteRepository.class
-com/danielsilva/imcApplication/dto/ClienteDTO.class
-com/danielsilva/imcApplication/service/ClienteService.class
