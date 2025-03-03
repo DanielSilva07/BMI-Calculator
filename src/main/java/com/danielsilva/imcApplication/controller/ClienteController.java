@@ -18,8 +18,8 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity<ClienteModel> save(@Valid @RequestBody ClienteDTO clienteDTO ){
-        return ResponseEntity.status(201).body(service.save(clienteDTO));
+    public ResponseEntity<ClienteModel>save(@RequestBody ClienteDtoRequest clienteDtoRequest){
+        return ResponseEntity.status(201).body(service.save(clienteDtoRequest));
     }
 
     @GetMapping()
