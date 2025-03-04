@@ -13,6 +13,7 @@ import java.util.List;
 @Service
 public class ClienteService {
 
+    private final EmailClient emailClient;
     private final String exchange ;
     private final NotificationRabbitService notificationRabbitService;
     private final ClienteRepository repository;
