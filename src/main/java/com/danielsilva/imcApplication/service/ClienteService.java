@@ -26,14 +26,16 @@ public class ClienteService {
         this.repository = repository;
     }
 
+    public ClienteModel save(ClienteDtoRequest clienteDtoRequest){
+      ClienteModel clienteModel = new ClienteModel();
 
-    public ClienteModel save(ClienteDTO clienteDTO){
-        ClienteModel clienteModel = new ClienteModel();
-        clienteModel.setNome(clienteDTO.nome());
-        clienteModel.setPeso(clienteDTO.peso());
-        clienteModel.setAltura(clienteDTO.altura());
-        clienteModel.imcCalculator();
-        notificationRabbitService.sendNotification(clienteModel,exchange);
+       clienteModel.setNome(clienteDtoRequest.nome());
+       clienteModel.setAltura(clienteDtoRequest.altura());
+       clienteModel.setPeso(clienteDtoRequest.peso());
+       clienteModel.setEmailTo(clienteDtoRequest.emailTo());
+       clienteModel.imcCalculator();
+       notificationRabbitService.sendNotification(clienteDtoRequest,exchange);
+       emailClient.sendEmail(notificationRabbitService.createMessageEmail(clienteModel));
         return repository.save(clienteModel);
     }
 
