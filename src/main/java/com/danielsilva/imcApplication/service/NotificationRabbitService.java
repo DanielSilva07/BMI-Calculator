@@ -30,6 +30,16 @@ public class NotificationRabbitService {
         } catch (RuntimeException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    public EmailModel createMessageEmail(ClienteModel clienteModel) {
+        return new EmailModel(
+                clienteModel.getId(),
+                clienteModel.getEmailFrom(),
+                clienteModel.getEmailTo(),
+                 "Teste de envio de email",
+                 "Olá " + clienteModel.getNome()  + ',' + "\n\n" + """
+                 Seu IMC é :""" + clienteModel.getImc());
 
     }
 }
