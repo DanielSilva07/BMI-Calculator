@@ -12,8 +12,8 @@ public class ClienteModel  {
 
     @Id
     private String id;
-
-    @NotNull
+    private String emailFrom = "example@example.com"; ;
+    private String emailTo ;
     private String nome;
 
     private Double altura;
