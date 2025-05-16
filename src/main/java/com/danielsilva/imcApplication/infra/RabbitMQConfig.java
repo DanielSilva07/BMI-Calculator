@@ -19,14 +19,15 @@ public class RabbitMQConfig {
     private final ConnectionFactory connectionFactory;
 
     public RabbitMQConfig(@Value("${rabbitmq.imc-exchange}")String exchangeName,
-                          ConnectionFactory connectionFactory1) {
+                          ConnectionFactory connectionFactory) {
         this.exchangeName = exchangeName;
-        this.connectionFactory = connectionFactory1;
+        this.connectionFactory = connectionFactory;
     }
 
     @Bean
     public Queue criarFilaImc( ) {
-        return QueueBuilder.durable ("imc-microservice").build();
+        return QueueBuilder.durable ("imc-microservice")
+                .build();
     }
 
     @Bean

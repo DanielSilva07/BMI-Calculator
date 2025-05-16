@@ -1,5 +1,6 @@
 package com.danielsilva.imcApplication.service;
 
+import com.danielsilva.imcApplication.dtos.EmailModel;
 import com.danielsilva.imcApplication.model.ClienteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +34,19 @@ public class NotificationRabbitService {
     }
 
     public EmailModel createMessageEmail(ClienteModel clienteModel) {
-        return new EmailModel(
-                clienteModel.getId(),
-                clienteModel.getEmailFrom(),
-                clienteModel.getEmailTo(),
-                 "Teste de envio de email",
-                 "Olá " + clienteModel.getNome()  + ',' + "\n\n" + """
+        try {
+            log.info("Enviando Email para o Exchange {}", exchange);
+            rabbitTemplate.convertAndSend(exchange, "", clienteModel);
+            return new EmailModel(
+                    clienteModel.getId(),
+                    clienteModel.getEmailFrom(),
+                    clienteModel.getEmail(),
+                    "Teste de envio de email",
+                    "Olá " + clienteModel.getNome()  + ',' + "\n\n" + """
                  Seu IMC é :""" + clienteModel.getImc());
+        } catch (RuntimeException exception) {
+            throw new RuntimeException(exception);
+        }
 
     }
 }

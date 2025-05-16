@@ -1,7 +1,6 @@
 package com.danielsilva.imcApplication.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter @Setter
@@ -10,16 +9,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "IMC")
 public class ClienteModel  {
 
-    @Id
     private String id;
-    private String emailFrom = "example@example.com"; ;
-    private String emailTo ;
+    @JsonIgnore
+    private String emailFrom = "example@example.com";
+    private String email;
     private String nome;
-
     private Double altura;
-
-    private Double peso ;
-
+    private Double peso;
     private Double imc;
 
 
@@ -32,43 +28,4 @@ public class ClienteModel  {
         }
 
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Double getAltura() {
-        return altura;
-    }
-
-    public void setAltura(Double altura) {
-        this.altura = altura;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
-    }
-
-    public Double getImc() {
-        return imc;
-    }
-
-    public void setImc(Double imc) {
-        this.imc = imc;
-    }
 }
