@@ -4,5 +4,3 @@ spring:
       database: cadastro
       host: mongodb2-imc
       port: 27017
-
-
