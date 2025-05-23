@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Document(collection = "IMC")
 public class ClienteModel  {
 
@@ -17,6 +18,7 @@ public class ClienteModel  {
     private Double altura;
     private Double peso;
     private Double imc;
+
 
 
     /**
