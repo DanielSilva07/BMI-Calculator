@@ -50,9 +50,6 @@ public class ClienteServiceTest {
         // Mock the repository save method
         when(repository.save(any(ClienteModel.class))).thenReturn(clienteSalvo);
 
-        // Mock the notification service to do nothing
-
-
         // Act
         ClienteModel resultado = service.save(clienteDto);
 
