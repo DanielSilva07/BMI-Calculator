@@ -22,7 +22,7 @@ public class ClienteController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ClienteModel>>getAll() {
+    public ResponseEntity<List<?>>getAll() {
         return ResponseEntity.ok().body(service.getAll());
     }
 

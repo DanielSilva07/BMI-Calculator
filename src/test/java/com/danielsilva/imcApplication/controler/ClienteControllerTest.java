@@ -2,6 +2,7 @@ package com.danielsilva.imcApplication.controler;
 
 import com.danielsilva.imcApplication.controller.ClienteController;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
+import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.model.ClienteModel;
 import com.danielsilva.imcApplication.repository.ClienteRepository;
 import com.danielsilva.imcApplication.service.ClienteService;
@@ -12,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -78,17 +80,25 @@ class ClienteControllerTest {
 
     @Test
     @DisplayName("deveListarTodosClientes")
-    void deveRetornarListaDeClientes() throws Exception {
+    public void deveRetornarListaDeClientes() throws Exception {
+        // Arrange
+        ClienteDtoResponse expectedResponse = new ClienteDtoResponse(
+                "1",
+                "João Silva",
+                "joao.silva@example.com",
+                1.75,
+                70.0,
+                24.4
+        );
+
+        // Mock the service response
+        List<ClienteDtoResponse> expectedList = List.of(expectedResponse);
+        when(service.getAll()).thenReturn((expectedList));
+
         // Act & Assert
-     MvcResult response = mockMvc.perform(MockMvcRequestBuilders.get("/bmi"))
-                .andExpect (MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print())
-                .andReturn();
-     response.getResponse().getContentAsString();
-     assertEquals(200, response.getResponse().getStatus());
-
-
+        mockMvc.perform(MockMvcRequestBuilders.get("/bmi"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(expectedList)))
+                .andDo(MockMvcResultHandlers.print());
     }
-
-
 }

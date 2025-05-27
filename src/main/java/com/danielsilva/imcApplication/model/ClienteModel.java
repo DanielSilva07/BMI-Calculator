@@ -8,7 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Builder
 @Document(collection = "IMC")
-public class ClienteModel  {
+public class ClienteModel implements java.io.Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String id;
     @JsonIgnore
