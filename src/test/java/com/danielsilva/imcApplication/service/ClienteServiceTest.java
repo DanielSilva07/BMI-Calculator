@@ -1,5 +1,6 @@
 package com.danielsilva.imcApplication.service;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
+import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.model.ClienteModel;
 import com.danielsilva.imcApplication.repository.ClienteRepository;
 import org.junit.jupiter.api.Test;
@@ -74,7 +75,7 @@ public class ClienteServiceTest {
         when(repository.findAll()).thenReturn(Collections.emptyList());
         
         // Act
-        List<ClienteModel> clientes = service.getAll();
+        List<ClienteDtoResponse> clientes = service.getAll();
         
         // Assert
         assertEquals(0, clientes.size());
@@ -103,7 +104,7 @@ public class ClienteServiceTest {
         when(repository.findAll()).thenReturn(clientesMock);
         
         // Act
-        List<ClienteModel> resultado = service.getAll();
+        List<ClienteDtoResponse> resultado = service.getAll();
         
         // Assert
         assertEquals(2, resultado.size());
