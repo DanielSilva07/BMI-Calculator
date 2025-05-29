@@ -4,3 +4,9 @@ spring:
       database: cadastro
       host: mongodb2-imc
       port: 27017
+
+kafka:
+  producer:
+  bootstrap-servers: localhost:9092
+  key.serializer: org.apache.kafka.common.serialization.StringSerializer
+  value.serializer: org.apache.kafka.common.serialization.StringSerializer

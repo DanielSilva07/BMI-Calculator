@@ -1,11 +1,10 @@
 package com.danielsilva.imcApplication.service;
 
-import com.danielsilva.imcApplication.clients.EmailClient;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
+import com.danielsilva.imcApplication.infra.kafka.MessageProducer;
 import com.danielsilva.imcApplication.model.ClienteModel;
 import com.danielsilva.imcApplication.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +14,12 @@ import java.util.stream.Collectors;
 @Service
 public class ClienteService {
 
-    private final EmailClient emailClient;
-    private final String exchange ;
-    private final NotificationRabbitService notificationRabbitService;
+    private final MessageProducer messageProducer;
     private final ClienteRepository repository;
 
-    public ClienteService(EmailClient emailClient, @Value("${rabbitmq.imc-exchange}")String exchange,
-                          NotificationRabbitService notificationRabbitService,
+    public ClienteService(MessageProducer messageProducer,
                           ClienteRepository repository) {
-        this.emailClient = emailClient;
-        this.exchange = exchange;
-        this.notificationRabbitService = notificationRabbitService;
+        this.messageProducer = messageProducer;
         this.repository = repository;
     }
 
@@ -37,8 +31,7 @@ public class ClienteService {
        clienteModel.setPeso(clienteDtoRequest.getPeso());
        clienteModel.setEmail(clienteDtoRequest.getEmail());
        clienteModel.imcCalculator();
-       notificationRabbitService.sendNotification(clienteModel,exchange);
-//       emailClient.sendEmail(notificationRabbitService.createMessageEmail(clienteModel));
+       messageProducer.sendMessage("imc", clienteModel.getImc().toString());
         return repository.save(clienteModel);
    }
 

@@ -24,9 +24,6 @@ public class ClienteServiceTest {
     @Mock
     private ClienteRepository repository;
 
-    @Mock
-    private NotificationRabbitService notificationRabbitService;
-
     @InjectMocks
     private ClienteService service;
 
