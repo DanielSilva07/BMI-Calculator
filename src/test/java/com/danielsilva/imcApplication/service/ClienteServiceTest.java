@@ -1,6 +1,7 @@
 package com.danielsilva.imcApplication.service;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
+import com.danielsilva.imcApplication.infra.kafka.MessageProducer;
 import com.danielsilva.imcApplication.model.ClienteModel;
 import com.danielsilva.imcApplication.repository.ClienteRepository;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ClienteServiceTest {
+
+    @Mock
+    private MessageProducer messageProducer;
 
     @Mock
     private ClienteRepository repository;
@@ -62,7 +66,7 @@ public class ClienteServiceTest {
 
         // Verify interactions
         verify(repository, times(1)).save(any(ClienteModel.class));
-
+        verify(messageProducer, times(1)).sendMessage("imc", clienteSalvo.getImc().toString());
     }
 
 
