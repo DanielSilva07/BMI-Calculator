@@ -1,15 +1,11 @@
 version: '3.9'
+
 networks:
   u-online:
     driver: bridge
 services:
 
-  #  nginx:
-  #    image: nginx:1-alpine
-  #    ports:
-  #      - "8000:80"
-  #    volumes:
-  #       - ./etc/nginx/nginx.conf:/usr/share/nginx/html
+
 
   mongodb2-imc:
     build:
