@@ -27,7 +27,7 @@ public class ClienteController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable (value = "id") String id) {
+    public ResponseEntity<Object>deleteById(@PathVariable (value = "id") String id) {
         return service.deleteById(id);
     }
 
