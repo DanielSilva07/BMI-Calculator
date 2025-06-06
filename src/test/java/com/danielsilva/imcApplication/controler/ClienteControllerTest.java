@@ -1,9 +1,7 @@
 package com.danielsilva.imcApplication.controler;
 
 import com.danielsilva.imcApplication.controller.ClienteController;
-import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
-import com.danielsilva.imcApplication.model.ClienteModel;
 import com.danielsilva.imcApplication.repository.ClienteRepository;
 import com.danielsilva.imcApplication.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,9 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 
@@ -43,39 +38,22 @@ class ClienteControllerTest {
     @Test
     @DisplayName("deveSalvarUmNovoCliente")
     void deveSalvarUmNovoCliente() throws Exception {
-        // Arrange
-        ClienteDtoRequest clienteDto = new ClienteDtoRequest(
-                "João Silva",
-                1.75,
-                70.0,
-                "joao.silva@example.com"
-        );
+        var body = """
+                {
+                    "nome": "João Silva",
+                    "altura": 1.75,
+                    "peso": 70.0,
+                    "email": "joao.silva@example.com"
+                }
+                """;
 
-        ClienteModel clienteSalvo = ClienteModel.builder()
-                .id("1")
-                .nome(clienteDto.getNome())
-                .altura(clienteDto.getAltura())
-                .peso(clienteDto.getPeso())
-                .email(clienteDto.getEmail())
-                .build();
-        clienteSalvo.imcCalculator();
-
-        // Mock the repository save method
-        when(repository.save(any(ClienteModel.class))).thenReturn(clienteSalvo);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/bmi")
                 .contentType("application/json")
-                .content(objectMapper.writeValueAsString(clienteDto)))
+                .content(body))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
-
-        // Assert
-
-        assertEquals("João Silva", clienteSalvo.getNome());
-        assertEquals(1.75, clienteSalvo.getAltura(), 0.001);
-        assertEquals(70.0, clienteSalvo.getPeso(), 0.001);
-        assertEquals("joao.silva@example.com", clienteSalvo.getEmail());
     }
 
     @Test
