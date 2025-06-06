@@ -35,7 +35,7 @@ public class ClienteService {
         return repository.save(clienteModel);
    }
 
-    public List<ClienteDtoResponse> getAll(){
+    public List<ClienteDtoResponse>getAll(){
         return repository.findAll().stream()
                 .map(clienteModel -> ClienteDtoResponse.builder()
                         .id(clienteModel.getId())
@@ -48,7 +48,7 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseEntity<Object> deleteById(String id) {
+    public ResponseEntity<Object>deleteById(String id) {
         return repository.findById(id)
                 .map(taskToDelete ->{
                     repository.deleteById(id);
