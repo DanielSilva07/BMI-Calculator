@@ -1,16 +1,22 @@
-FROM maven:3.9.9-eclipse-temurin-21-alpine AS  build
-
-COPY src /app/src
-COPY pom.xml /app
+# Build stage
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
 
 WORKDIR /app
-CMD ["chmod", "+x", "./mvnw"]
-RUN mvn clean install -DsKipTests
+# Copy the Maven project files
+COPY pom.xml ./
+# Download dependencies
+RUN mvn dependency:go-offline -B
+# Copy source code
+COPY src ./src
+# Build the application
+RUN mvn clean package -DskipTests
 
+# Runtime stage
 FROM openjdk:17-ea-3-jdk-slim
 
 WORKDIR /app
-COPY --from=build app/target/imcApplication-0.0.1-SNAPSHOT.jar app/app.jar
+# Copy the JAR from the build stage
+COPY --from=build /app/target/*.jar app.jar
 
-ENTRYPOINT ["java" , "-jar" , "app/app.jar"]
-
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]

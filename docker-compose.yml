@@ -3,33 +3,39 @@ version: '3.9'
 networks:
   u-online:
     driver: bridge
+
 services:
 
-
-
-  mongodb2-imc:
-    build:
-      context: .
-    image: mongo:latest
-    restart: always
+  mongodb:
+    image: mongo:4.4.4
+    platform: linux/amd64
+    container_name: mongodb
     environment:
-      DB_URI: '${DB_URI}'
-      DB_USER: '${DB_USER}'
-      DB_PASSWORD: '$DB_PASSWORD'
-    container_name: 'mongodb2-imc'
-    #    ports:
-    #      - "27017:27017"
+      MONGO_INITDB_ROOT_USERNAME: daniel97dev
+      MONGO_INITDB_ROOT_PASSWORD: mongo1234
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
     networks:
       - u-online
+
 
   imc:
     build:
       context: .
-    image: daniel00dev/imc:1.1
+    image: daniel00dev/bmi:latest
     container_name: imc
+    environment:
+      - DB_URI=mongodb://daniel97dev:mongo1234@mongodb:27017/cadastro?authSource=admin&retryWrites=true&w=majority
+      - DB_USER=daniel97dev
+      - DB_PASSWORD=mongo1234
     ports:
       - "9000:9000"
     depends_on:
-      -  mongodb2-imc
+      - mongodb
     networks:
       - u-online
+
+volumes:
+  mongodb_data:
