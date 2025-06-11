@@ -4,38 +4,37 @@ networks:
   u-online:
     driver: bridge
 
+volumes:
+  postgres-data:
+
 services:
 
-  mongodb:
-    image: mongo:4.4.4
-    platform: linux/amd64
-    container_name: mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: daniel97dev
-      MONGO_INITDB_ROOT_PASSWORD: mongo1234
-    ports:
-      - "27017:27017"
+  imc-db:
+    image: postgres:15-alpine
+    restart: always
+    env_file:
+       - ./env/imc-db.env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     volumes:
-      - mongodb_data:/data/db
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - u-online
-
 
   imc:
     build:
       context: .
     image: daniel00dev/bmi:latest
     container_name: imc
-    environment:
-      - DB_URI=mongodb://daniel97dev:mongo1234@mongodb:27017/cadastro?authSource=admin&retryWrites=true&w=majority
-      - DB_USER=daniel97dev
-      - DB_PASSWORD=mongo1234
+    env_file:
+      - ./env/imc-app.env
     ports:
       - "9000:9000"
     depends_on:
-      - mongodb
+      imc-db:
+        condition: service_healthy
     networks:
       - u-online
-
-volumes:
-  mongodb_data:
