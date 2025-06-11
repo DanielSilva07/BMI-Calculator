@@ -2,8 +2,8 @@ package com.danielsilva.imcApplication.service;
 import com.danielsilva.imcApplication.fixtures.Fixtures;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.infra.kafka.MessageProducer;
-import com.danielsilva.imcApplication.model.ClienteModel;
-import com.danielsilva.imcApplication.repository.ClienteRepository;
+import com.danielsilva.imcApplication.domain.ClienteModel;
+import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -74,14 +74,14 @@ public class ClienteServiceTest {
     public void getAll_DeveRetornarListaDeClientes_QuandoExistiremClientes() {
         // Arrange
         ClienteModel cliente1 = new ClienteModel();
-        cliente1.setId("1");
+        cliente1.setId(1L);
         cliente1.setNome("Daniel");
         cliente1.setAltura(1.80);
         cliente1.setPeso(80.0);
         cliente1.setEmail("daniel@example.com");
         
         ClienteModel cliente2 = new ClienteModel();
-        cliente2.setId("2");
+        cliente2.setId(2L);
         cliente2.setNome("João");
         cliente2.setAltura(1.75);
         cliente2.setPeso(70.0);
