@@ -1,10 +1,10 @@
 package com.danielsilva.imcApplication.service;
 
+import com.danielsilva.imcApplication.domain.ClienteModel;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.infra.kafka.MessageProducer;
-import com.danielsilva.imcApplication.model.ClienteModel;
-import com.danielsilva.imcApplication.repository.ClienteRepository;
+import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +48,7 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
-    public ResponseEntity<Object>deleteById(String id) {
+    public ResponseEntity<Object>deleteById(Long id) {
         return repository.findById(id)
                 .map(taskToDelete ->{
                     repository.deleteById(id);

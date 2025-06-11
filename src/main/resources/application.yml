@@ -1,9 +1,9 @@
 spring:
   data:
-    mongodb2-imc:
-      database: cadastro
-      host: mongodb2-imc
-      port: 27017
+    imc-db:
+      database: postgres
+      host: localhost
+      port: "5432:5432"
 
 kafka:
   producer:

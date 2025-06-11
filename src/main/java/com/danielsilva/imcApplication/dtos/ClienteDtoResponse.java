@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ClienteDtoResponse {
 
-    private String id;
+    private Long id;
     private String nome;
     private String email;
     private Double altura;
