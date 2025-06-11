@@ -1,7 +1,7 @@
 package com.danielsilva.imcApplication.fixtures;
 
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
-import com.danielsilva.imcApplication.model.ClienteModel;
+import com.danielsilva.imcApplication.domain.ClienteModel;
 
 public class Fixtures {
 
@@ -16,7 +16,7 @@ public class Fixtures {
 
     public static ClienteModel buildClienteDtoResponse(){
         return new ClienteModel(
-                "1",
+                1L,
                 "test",
                 "joao.silva@example.com",
                 "João Silva",

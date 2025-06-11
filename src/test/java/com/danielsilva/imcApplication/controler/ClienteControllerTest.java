@@ -2,7 +2,7 @@ package com.danielsilva.imcApplication.controler;
 
 import com.danielsilva.imcApplication.controller.ClienteController;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
-import com.danielsilva.imcApplication.repository.ClienteRepository;
+import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
 import com.danielsilva.imcApplication.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -61,7 +61,7 @@ class ClienteControllerTest {
     public void deveRetornarListaDeClientes() throws Exception {
         // Arrange
         ClienteDtoResponse expectedResponse = new ClienteDtoResponse(
-                "1",
+                1L,
                 "João Silva",
                 "joao.silva@example.com",
                 1.75,
