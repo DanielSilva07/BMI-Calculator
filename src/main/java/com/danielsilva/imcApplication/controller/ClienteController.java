@@ -1,6 +1,6 @@
 package com.danielsilva.imcApplication.controller;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
-import com.danielsilva.imcApplication.model.ClienteModel;
+import com.danielsilva.imcApplication.domain.ClienteModel;
 import com.danielsilva.imcApplication.service.ClienteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,7 @@ public class ClienteController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Object>deleteById(@PathVariable (value = "id") String id) {
+    public ResponseEntity<Object>deleteById(@PathVariable (value = "id") Long id) {
         return service.deleteById(id);
     }
 

@@ -1,17 +1,20 @@
-package com.danielsilva.imcApplication.model;
+package com.danielsilva.imcApplication.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document(collection = "IMC")
+@Entity
 public class ClienteModel implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @JsonIgnore
     private String emailFrom = "example@example.com";
     private String email;
