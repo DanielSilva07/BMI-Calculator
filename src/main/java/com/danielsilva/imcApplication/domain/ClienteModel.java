@@ -2,7 +2,9 @@ package com.danielsilva.imcApplication.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
- import java.math.BigDecimal;
+
+import java.io.Serial;
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 
@@ -13,6 +15,7 @@ import java.math.RoundingMode;
 @Entity
 @Table(name = "Imc")
 public class ClienteModel implements java.io.Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id

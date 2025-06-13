@@ -23,7 +23,7 @@ public class ClienteController {
 
     @GetMapping()
     public ResponseEntity<List<?>>getAll() {
-        return ResponseEntity.ok().body(service.getAll());
+        return ResponseEntity.ok().body(service.clientList());
     }
 
     @DeleteMapping(path = "/{id}")

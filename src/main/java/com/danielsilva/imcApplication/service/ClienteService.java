@@ -36,8 +36,8 @@ public class ClienteService {
         return repository.save(clienteModel);
    }
 
-   @Cacheable(value = "ListaDeClientes")
-    public List<ClienteDtoResponse>getAll(){
+//   @Cacheable(value = "ListaDeClientes")
+    public List<ClienteDtoResponse> clientList(){
         return repository.findAll().stream()
                 .map(clienteModel -> ClienteDtoResponse.builder()
                         .id(clienteModel.getId())

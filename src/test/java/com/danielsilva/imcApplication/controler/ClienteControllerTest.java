@@ -70,7 +70,7 @@ class ClienteControllerTest {
 
         // Mock the service response
         List<ClienteDtoResponse> expectedList = List.of(expectedResponse);
-        when(service.getAll()).thenReturn((expectedList));
+        when(service.clientList()).thenReturn((expectedList));
 
         // Act & Assert
         mockMvc.perform(MockMvcRequestBuilders.get("/bmi"))

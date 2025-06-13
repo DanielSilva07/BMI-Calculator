@@ -57,12 +57,12 @@ public class ClienteServiceTest {
 
 
     @Test
-    public void getAll_DeveRetornarListaVazia_QuandoNaoHouverClientes() {
+    public void clientList_DeveRetornarListaVazia_QuandoNaoHouverClientes() {
         // Arrange
         when(repository.findAll()).thenReturn(Collections.emptyList());
         
         // Act
-        List<ClienteDtoResponse> clientes = service.getAll();
+        List<ClienteDtoResponse> clientes = service.clientList();
         
         // Assert
         assertEquals(0, clientes.size());
@@ -70,7 +70,7 @@ public class ClienteServiceTest {
     }
     
     @Test
-    public void getAll_DeveRetornarListaDeClientes_QuandoExistiremClientes() {
+    public void clientList_DeveRetornarListaDeClientes_QuandoExistiremClientes() {
         // Arrange
         ClienteModel cliente1 = new ClienteModel();
         cliente1.setId(1L);
@@ -91,7 +91,7 @@ public class ClienteServiceTest {
         when(repository.findAll()).thenReturn(clientesMock);
         
         // Act
-        List<ClienteDtoResponse> resultado = service.getAll();
+        List<ClienteDtoResponse> resultado = service.clientList();
         
         // Assert
         assertEquals(2, resultado.size());
