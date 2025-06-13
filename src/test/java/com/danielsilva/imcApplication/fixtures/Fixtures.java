@@ -1,15 +1,16 @@
 package com.danielsilva.imcApplication.fixtures;
-
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.domain.ClienteModel;
+
+import java.math.BigDecimal;
 
 public class Fixtures {
 
     public static ClienteDtoRequest buildClienteDtoRequest(){
         return new ClienteDtoRequest(
                 "João Silva",
-                1.75,
-                70.0,
+                new BigDecimal("1.78"),
+                new BigDecimal("70.0"),
                 "joao.silva@example.com"
         );
     }
@@ -20,9 +21,9 @@ public class Fixtures {
                 "test",
                 "joao.silva@example.com",
                 "João Silva",
-                1.75,
-                70.0,
-                22.857142857142858
+                new BigDecimal("1.78"),
+                new BigDecimal("70.0"),
+                new BigDecimal("22.857142857142858")
         );
     }
 
