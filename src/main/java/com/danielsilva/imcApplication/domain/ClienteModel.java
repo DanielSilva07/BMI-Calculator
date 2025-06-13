@@ -27,20 +27,14 @@ public class ClienteModel implements java.io.Serializable {
     private BigDecimal imc;
 
 
-
     /**
-     * @return metodo que retorna o valor do imc
-     */
-        /**
          * Calculates the Body Mass Index (BMI) for the client.
-         *
+         * <p>
          * The BMI is calculated using the formula: weight (kg) / height² (m²)
          *
-         * @return The calculated BMI value as a BigDecimal
          * @throws ArithmeticException if height is zero (which would cause division by zero)
          */
         public void imcCalculator() {
-            // Calculate BMI using the formula: weight / height²
             imc = peso.divide(altura.multiply(altura), 2, RoundingMode.HALF_UP);
         }
 
