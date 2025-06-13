@@ -1,5 +1,4 @@
 package com.danielsilva.imcApplication.controler;
-
 import com.danielsilva.imcApplication.controller.ClienteController;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
@@ -14,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
+import java.math.BigDecimal;
 import java.util.List;
 import static org.mockito.Mockito.when;
 
@@ -64,9 +63,9 @@ class ClienteControllerTest {
                 1L,
                 "João Silva",
                 "joao.silva@example.com",
-                1.75,
-                70.0,
-                24.4
+                new BigDecimal("1.75"),
+                new BigDecimal("70.0"),
+                new BigDecimal("24.4")
         );
 
         // Mock the service response
