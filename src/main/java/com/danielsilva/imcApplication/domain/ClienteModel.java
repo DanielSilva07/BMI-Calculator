@@ -3,12 +3,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "Imc")
 public class ClienteModel implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -19,17 +23,26 @@ public class ClienteModel implements java.io.Serializable {
     private String emailFrom = "example@example.com";
     private String email;
     private String nome;
-    private Double altura;
-    private Double peso;
-    private Double imc;
+    private BigDecimal altura;
+    private BigDecimal peso;
+    private BigDecimal imc;
 
 
 
     /**
      * @return metodo que retorna o valor do imc
      */
-        public Double imcCalculator(){
-            imc = ( peso / (Math.pow(altura ,2)));
+        /**
+         * Calculates the Body Mass Index (BMI) for the client.
+         * 
+         * The BMI is calculated using the formula: weight (kg) / height² (m²)
+         * 
+         * @return The calculated BMI value as a BigDecimal
+         * @throws ArithmeticException if height is zero (which would cause division by zero)
+         */
+        public BigDecimal imcCalculator() {
+            // Calculate BMI using the formula: weight / height²
+            imc = peso.divide(altura.multiply(altura), 2, RoundingMode.HALF_UP);
             return imc;
         }
 

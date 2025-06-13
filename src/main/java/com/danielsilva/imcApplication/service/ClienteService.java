@@ -35,6 +35,7 @@ public class ClienteService {
         return repository.save(clienteModel);
    }
 
+   @Cacheable(value = "ListaDeClientes")
     public List<ClienteDtoResponse>getAll(){
         return repository.findAll().stream()
                 .map(clienteModel -> ClienteDtoResponse.builder()
