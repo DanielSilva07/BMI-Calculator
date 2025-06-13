@@ -2,8 +2,7 @@ package com.danielsilva.imcApplication.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.math.BigDecimal;
+ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 
@@ -34,16 +33,15 @@ public class ClienteModel implements java.io.Serializable {
      */
         /**
          * Calculates the Body Mass Index (BMI) for the client.
-         * 
+         *
          * The BMI is calculated using the formula: weight (kg) / height² (m²)
-         * 
+         *
          * @return The calculated BMI value as a BigDecimal
          * @throws ArithmeticException if height is zero (which would cause division by zero)
          */
-        public BigDecimal imcCalculator() {
+        public void imcCalculator() {
             // Calculate BMI using the formula: weight / height²
             imc = peso.divide(altura.multiply(altura), 2, RoundingMode.HALF_UP);
-            return imc;
         }
 
 
