@@ -1,8 +1,8 @@
 package com.danielsilva.imcApplication.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -21,12 +21,21 @@ public class ClienteModel implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @JsonIgnore
     private String emailFrom = "example@example.com";
+
     private String email;
+
+    @NotBlank
     private String nome;
+
+    @NotBlank
     private BigDecimal altura;
+
+    @NotBlank
     private BigDecimal peso;
+
     private BigDecimal imc;
 
 

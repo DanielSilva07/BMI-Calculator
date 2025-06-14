@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+db
+postgres-data
+.mvn
+env
+mvnw
+mvnw.cmd
