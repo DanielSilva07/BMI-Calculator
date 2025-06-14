@@ -1,6 +1,4 @@
 package com.danielsilva.imcApplication.dtos;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,10 +11,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClienteDtoRequest {
+
                 String nome;
                 BigDecimal altura;
                 BigDecimal peso ;
                 String email ;
-
 }
 

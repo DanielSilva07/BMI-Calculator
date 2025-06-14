@@ -5,6 +5,9 @@ import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.infra.kafka.MessageProducer;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,7 +17,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
-
+    
+    private static final Logger logger = LoggerFactory.getLogger(ClienteService.class);
+    
     private final MessageProducer messageProducer;
     private final ClienteRepository repository;
 
@@ -24,20 +29,31 @@ public class ClienteService {
         this.repository = repository;
     }
 
-    public ClienteModel save(ClienteDtoRequest clienteDtoRequest){
-      ClienteModel clienteModel = new ClienteModel();
+    @CacheEvict(value = "listaDeClientes", allEntries = true)
+    public ClienteModel save(ClienteDtoRequest clienteDtoRequest) {
+        if (clienteDtoRequest == null) {
+            throw new IllegalArgumentException("O objeto ClienteDtoRequest não pode ser nulo");
+        }
+        try {
+            logger.info("Limpando cache de clientes...");
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setNome(clienteDtoRequest.getNome());
+            clienteModel.setAltura(clienteDtoRequest.getAltura());
+            clienteModel.setPeso(clienteDtoRequest.getPeso());
+            clienteModel.setEmail(clienteDtoRequest.getEmail());
+            clienteModel.imcCalculator();
+            // messageProducer.sendMessage("imc", clienteModel.getImc().toString());
+            return repository.save(clienteModel);
+        } catch (Exception e) {
+            logger.error("Erro ao salvar cliente: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao processar o cadastro do cliente", e);
+        }
 
-       clienteModel.setNome(clienteDtoRequest.getNome());
-       clienteModel.setAltura(clienteDtoRequest.getAltura());
-       clienteModel.setPeso(clienteDtoRequest.getPeso());
-       clienteModel.setEmail(clienteDtoRequest.getEmail());
-       clienteModel.imcCalculator();
-       messageProducer.sendMessage("imc", clienteModel.getImc().toString());
-        return repository.save(clienteModel);
    }
 
-//   @Cacheable(value = "ListaDeClientes")
+   @Cacheable(value = "listaDeClientes")
     public List<ClienteDtoResponse> clientList(){
+        logger.info("Buscando clientes no banco de dados...");
         return repository.findAll().stream()
                 .map(clienteModel -> ClienteDtoResponse.builder()
                         .id(clienteModel.getId())
