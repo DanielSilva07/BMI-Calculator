@@ -43,4 +43,9 @@ services:
   redis:
    image: redis:7.2.4
    restart: unless-stopped
+   deploy:
+     resources:
+       limits:
+         cpus: '1'
+         memory: 512M
 
