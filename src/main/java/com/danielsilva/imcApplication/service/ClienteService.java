@@ -32,7 +32,7 @@ public class ClienteService {
     @CacheEvict(value = "listaDeClientes", allEntries = true)
     public ClienteModel save(ClienteDtoRequest clienteDtoRequest) {
         if (clienteDtoRequest == null) {
-            throw new IllegalArgumentException("O objeto ClienteDtoRequest não pode ser nulo");
+            throw new IllegalArgumentException("O Objeto cliente não pode ser nulo");
         }
         try {
             logger.info("Limpando cache de clientes...");
@@ -42,10 +42,13 @@ public class ClienteService {
             clienteModel.setPeso(clienteDtoRequest.getPeso());
             clienteModel.setEmail(clienteDtoRequest.getEmail());
             clienteModel.imcCalculator();
-            // messageProducer.sendMessage("imc", clienteModel.getImc().toString());
-            return repository.save(clienteModel);
+            ClienteModel savedCliente = repository.save(clienteModel);
+            logger.info("Enviando mensagem para o Kafka...");
+            messageProducer.sendMessage("imc", savedCliente);
+            return savedCliente;
+
         } catch (Exception e) {
-            logger.error("Erro ao salvar cliente: " + e.getMessage(), e);
+            logger.error("Erro ao salvar cliente: {}", e.getMessage(), e);
             throw new RuntimeException("Erro ao processar o cadastro do cliente", e);
         }
 
