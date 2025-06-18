@@ -164,5 +164,5 @@ Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para d
 
 ---
 
-Desenvolvido por Daniel Silva - danie97silva.ds@gmail.com
+Desenvolvido por Daniel Silva - daniel97silva.ds@gmail.com
 
