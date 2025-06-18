@@ -1,62 +1,162 @@
-# BMI-Calculator
-The "BMI Calculator" project will provide users with a quick and easy tool to calculate their Body Mass Index (BMI).
+# Calculadora de IMC (Índice de Massa Corporal)
 
-BMI: Body Mass Index, a measure of body fat based on height and weight.
+Este é um projeto de API RESTful para cálculo de IMC (Índice de Massa Corporal) desenvolvido com Spring Boot. O sistema permite calcular o IMC de usuários, armazenar o histórico de cálculos e fornecer análises.
 
+## 🚀 Tecnologias
 
-# API Endpoints
+- **Backend**: Java 17, Spring Boot 3.x
+- **Banco de Dados**: PostgreSQL
+- **Cache**: Redis
+- **Mensageria**: Apache Kafka
+- **Proxy Reverso**: NGINX
+- **Containerização**: Docker e Docker Compose
+- **Gerenciamento de Dependências**: Maven
 
-POST /bmi/calculate: http://localhost:80/bmi/calculate
+## 📋 Pré-requisitos
 
-{
+- Docker e Docker Compose instalados
+- Java 17 ou superior
+- Maven 3.6+ (opcional, para build local)
 
-    "nome":"Melquisedeque",
-    "altura":"1.72",
-    "peso":"80"
+## 🛠️ Configuração do Ambiente
 
-}
+1. **Variáveis de Ambiente**
+   - Crie um arquivo `.env` na raiz do projeto ou use os arquivos na pasta `env/`
+   - Configure as variáveis necessárias para o banco de dados e outras dependências
 
-{
+2. **Banco de Dados**
+   - O PostgreSQL será executado em um container Docker
+   - Os dados são persistidos em um volume Docker chamado `postgres-data`
 
-    "id": "67465d01e30c8f3f011a5c55",
-    "nome": "Melquisedeque",
-    "altura": 1.72,
-    "peso": 80.0,
-    "imc": 27.041644131963228
-}
+## 🚀 Executando o Projeto
 
+### Com Docker Compose (Recomendado)
 
-GET /bmi/history: http://localhost:80/bmi/history
+```bash
+# Construir e iniciar todos os serviços
+docker-compose up -d --build
 
-Getting all history from the Database.
+# Verificar logs
+docker-compose logs -f
 
-Body Return:
+# Parar todos os serviços
+docker-compose down
+```
 
-[
-    {  
-    
-        "id": "6744de481760d52ba08e03a4",
-        "nome": "Agnes",
-        "altura": 1.9,
-        "peso": 65.0,
-        "imc": 18.005540166204987
-    },
+### Sem Docker
 
-    
-    {
-        "id": "6744e82355b22b16fe8fa5dd",
-        "nome": "Geysiane",
-        "altura": 1.72,
-        "peso": 65.0,
-        "imc": 21.971335857220122
-    }
-]
+1. Certifique-se de ter um servidor PostgreSQL rodando
+2. Configure as variáveis de ambiente necessárias
+3. Execute:
+   ```bash
+   mvn spring-boot:run
+   ```
 
+## 🌐 Endpoints da API
 
-# NGINX
-The project to implement a server proxy using an NGINX server and should be considered for demonstration or testing purposes only.
+### Calcular IMC
+- **POST** `/bmi/calculate`
+  - Calcula o IMC com base nos dados fornecidos
+  
+  **Exemplo de Requisição:**
+  ```json
+  {
+      "nome": "João",
+      "altura": 1.75,
+      "peso": 70
+  }
+  ```
 
-A reverse proxy works by intercepting requests from clients, forwarding them to the appropriate server, and then returning the server's response to the client
+  **Resposta de Sucesso (200 OK):**
+  ```json
+  {
+      "id": "12345abcde",
+      "nome": "João",
+      "altura": 1.75,
+      "peso": 70.0,
+      "imc": 22.86
+  }
+  ```
 
-![Screenshot from 2024-11-25 19-11-38](https://github.com/user-attachments/assets/dbf78c24-7fba-4ad3-9ed2-0a68ac6df7a8)
+### Histórico de Cálculos
+- **GET** `/bmi/history`
+  - Retorna todo o histórico de cálculos armazenados
+
+  **Resposta de Sucesso (200 OK):**
+  ```json
+  [
+      {
+          "id": "12345abcde",
+          "nome": "João",
+          "altura": 1.75,
+          "peso": 70.0,
+          "imc": 22.86
+      },
+      {
+          "id": "67890fghij",
+          "nome": "Maria",
+          "altura": 1.65,
+          "peso": 60.0,
+          "imc": 22.04
+      }
+  ]
+  ```
+
+## 📊 Categorias de IMC
+
+| IMC | Categoria |
+|-----|-----------|
+| Abaixo de 18.5 | Abaixo do peso |
+| 18.5 - 24.9 | Peso normal |
+| 25.0 - 29.9 | Sobrepeso |
+| 30.0 - 34.9 | Obesidade Grau I |
+| 35.0 - 39.9 | Obesidade Grau II |
+| 40.0 ou mais | Obesidade Grau III |
+
+## 📦 Estrutura do Projeto
+
+```
+imc-application/
+├── src/
+│   ├── main/
+│   │   ├── java/com/danielsilva/imcapplication/
+│   │   │   ├── config/       # Configurações do Spring
+│   │   │   ├── controller/   # Controladores REST
+│   │   │   ├── model/        # Entidades JPA
+│   │   │   ├── repository/   # Repositórios Spring Data
+│   │   │   ├── service/      # Lógica de negócios
+│   │   │   └── ImcApplication.java
+│   │   └── resources/
+│   │       ├── application.yml
+│   │       └── db/migration/ # Migrações do banco de dados
+│   └── test/                 # Testes unitários e de integração
+├── docker/
+│   └── nginx/             # Configurações do NGINX
+├── env/                     # Arquivos de ambiente
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+└── pom.xml
+```
+
+## 🔍 Monitoramento e Logs
+
+- **Logs da Aplicação**: Consulte os logs com `docker-compose logs -f imc`
+- **Health Check**: A API expõe um endpoint de health check em `/actuator/health`
+
+## 🤝 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas alterações (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
+
+---
+
+Desenvolvido por [Seu Nome] - [seu.email@exemplo.com](mailto:seu.email@exemplo.com)
 
