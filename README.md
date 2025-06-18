@@ -128,7 +128,7 @@ imc-application/
 │   │   │   └── ImcApplication.java
 │   │   └── resources/
 │   │       ├── application.yml
-│   │       └── db/migration/ # Migrações do banco de dados
+│   │  
 │   └── test/                 # Testes unitários e de integração
 ├── docker/
 │   └── nginx/             # Configurações do NGINX
@@ -142,7 +142,6 @@ imc-application/
 ## 🔍 Monitoramento e Logs
 
 - **Logs da Aplicação**: Consulte os logs com `docker-compose logs -f imc`
-- **Health Check**: A API expõe um endpoint de health check em `/actuator/health`
 
 ## 🤝 Contribuição
 
@@ -158,5 +157,5 @@ Este projeto está sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para d
 
 ---
 
-Desenvolvido por [Seu Nome] - [seu.email@exemplo.com](mailto:seu.email@exemplo.com)
+Desenvolvido por Daniel Silva - danie97silva.ds@gmail.com
 
