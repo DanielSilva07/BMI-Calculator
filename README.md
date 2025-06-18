@@ -144,7 +144,7 @@ imc-application/
 - **Logs da Aplicação**: Consulte os logs com `docker-compose logs -f imc`
 
 
-## Diagrama do fluxo 
+## Componentes da Arquitetura
 
 ![Editor _ Mermaid Chart-2025-06-18-204919](https://github.com/user-attachments/assets/9c3238cc-8adf-4518-8fa1-1b8d2c46d38b)
 
