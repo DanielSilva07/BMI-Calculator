@@ -147,40 +147,9 @@ imc-application/
 ## Componentes da Arquitetura
 
 
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#bbdefb','primaryTextColor': '#000000','primaryBorderColor': '#000000','lineColor': '#000000','secondaryColor': '#e3f2fd','tertiaryColor': '#bbdefb'}}}%%
-graph TD
-    subgraph "Cliente"
-        A[Usuário] -->|HTTP/HTTPS| B[NGINX]
-    end
+![Mermaid Chart - Create complex, visual diagrams with text  A smarter way of creating diagrams -2025-06-20-001625](https://github.com/user-attachments/assets/761d1c94-00a3-4eaa-92d2-59c6ec36c20f)
 
-    subgraph "Aplicação IMC (Spring Boot)"
-        B -->|Proxy Reverso| C[Controlador REST]
-        C -->|Chama| D[Serviço de Cálculo IMC]
-        D -->|Lê/Grava| E[Repositório JPA]
-        D -->|Cache| F[(Redis)]
-        D -->|Salva| O[Outbox Table]
-        O -->|Processa| P[Outbox Service]
-        P -->|Publica| G[Kafka Producer]
-    end
 
-    subgraph "Infraestrutura"
-        E -->|Persiste| H[(PostgreSQL)]
-        G -->|Envia| I[Tópico Kafka]
-        I -->|Consome| J[Consumidor Kafka]
-    end
-
-    style A fill:#e1f5fe,stroke:#000,stroke-width:2px
-    style B fill:#bbdefb,stroke:#000,stroke-width:2px
-    style C fill:#c8e6c9,stroke:#000,stroke-width:2px
-    style D fill:#c8e6c9,stroke:#000,stroke-width:2px
-    style E fill:#d1c4e9,stroke:#000,stroke-width:2px
-    style F fill:#ffccbc,stroke:#000,stroke-width:2px
-    style G fill:#d7ccc8,stroke:#000,stroke-width:2px
-    style H fill:#b3e5fc,stroke:#000,stroke-width:2px
-    style I fill:#d7ccc8,stroke:#000,stroke-width:2px
-    style J fill:#d7ccc8,stroke:#000,stroke-width:2px
-```
 
 
 
