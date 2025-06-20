@@ -23,12 +23,17 @@ spring:
   # Configuração do JPA/Hibernate
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: validate
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  # Configuração do Liquibase
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-1.0.xml
 
   # Configuração do Redis
   redis:

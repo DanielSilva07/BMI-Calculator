@@ -50,8 +50,18 @@ public class ClienteModel implements java.io.Serializable {
          * @throws ArithmeticException if height is zero (which would cause division by zero)
          */
         public void imcCalculator() {
-            imc = peso.divide(altura.multiply(altura), 2, RoundingMode.HALF_UP);
-        }
+        imc = peso.divide(altura.multiply(altura), 2, RoundingMode.HALF_UP);
+    }
 
-
+    @Override
+    public String toString() {
+        return "ClienteModel{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", altura=" + altura +
+                ", peso=" + peso +
+                ", imc=" + imc +
+                '}';
+    }
 }
