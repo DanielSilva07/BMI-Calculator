@@ -3,8 +3,9 @@ package com.danielsilva.imcApplication.service;
 import com.danielsilva.imcApplication.domain.ClienteModel;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
-import com.danielsilva.imcApplication.infra.kafka.MessageProducer;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
@@ -20,31 +21,39 @@ public class ClienteService {
     
     private static final Logger logger = LoggerFactory.getLogger(ClienteService.class);
     
-    private final MessageProducer messageProducer;
     private final ClienteRepository repository;
+    private final OutboxService outboxService;
+    private final ObjectMapper objectMapper;
 
-    public ClienteService(MessageProducer messageProducer,
-                          ClienteRepository repository) {
-        this.messageProducer = messageProducer;
+    public ClienteService(ClienteRepository repository, OutboxService outboxService, ObjectMapper objectMapper) {
         this.repository = repository;
+        this.outboxService = outboxService;
+        this.objectMapper = objectMapper;
     }
 
+
+
+    @Transactional
     @CacheEvict(value = "listaDeClientes", allEntries = true)
     public ClienteModel save(ClienteDtoRequest clienteDtoRequest) {
         if (clienteDtoRequest == null) {
-            throw new IllegalArgumentException("O Objeto cliente não pode ser nulo");
+            throw new IllegalArgumentException("O Objeto cliente não pode ser nulo");
         }
         try {
-            logger.info("Limpando cache de clientes...");
+            logger.info("Salvando cliente...");
             ClienteModel clienteModel = new ClienteModel();
             clienteModel.setNome(clienteDtoRequest.getNome());
             clienteModel.setAltura(clienteDtoRequest.getAltura());
             clienteModel.setPeso(clienteDtoRequest.getPeso());
             clienteModel.setEmail(clienteDtoRequest.getEmail());
             clienteModel.imcCalculator();
+            
             ClienteModel savedCliente = repository.save(clienteModel);
-            logger.info("Enviando mensagem para o Kafka...");
-            messageProducer.sendMessage("imc", savedCliente);
+
+            // Em vez de enviar direto para o Kafka, salva no outbox
+            outboxService.saveToOutbox(savedCliente, savedCliente.getId().toString());
+            logger.info("Cliente salvo e mensagem adicionada ao outbox");
+            
             return savedCliente;
 
         } catch (Exception e) {
