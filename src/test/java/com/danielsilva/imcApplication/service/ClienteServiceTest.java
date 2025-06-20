@@ -1,9 +1,10 @@
 package com.danielsilva.imcApplication.service;
+
 import com.danielsilva.imcApplication.fixtures.Fixtures;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
-import com.danielsilva.imcApplication.infra.kafka.MessageProducer;
 import com.danielsilva.imcApplication.domain.ClienteModel;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,17 +25,19 @@ import static org.mockito.Mockito.*;
 public class ClienteServiceTest {
 
     @Mock
-    private MessageProducer messageProducer;
-
-    @Mock
     private ClienteRepository repository;
+    
+    @Mock
+    private OutboxService outboxService;
+    
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @InjectMocks
     private ClienteService service;
 
+
     @Test
     public void deveSalvarUmNovoCliente() {
-        // Arrange
         var clienteDto = Fixtures.buildClienteDtoRequest();
         var clienteModel = Fixtures.buildClienteDtoResponse();
 
@@ -42,7 +45,6 @@ public class ClienteServiceTest {
 
         ClienteModel resultado = service.save(clienteDto);
 
-        // Assert
         assertNotNull(resultado);
         assertEquals(clienteDto.getNome(), resultado.getNome());
         assertEquals(clienteDto.getAltura(), resultado.getAltura());
@@ -50,28 +52,23 @@ public class ClienteServiceTest {
         assertEquals(clienteDto.getEmail(), resultado.getEmail());
         assertEquals(clienteModel.getImc(), resultado.getImc());
 
-        // Verify interactions
         verify(repository, times(1)).save(any(ClienteModel.class));
-//        verify(messageProducer, times(1)).sendMessage("imc", resultado.getImc().toString());
+        verify(outboxService, times(1)).saveToOutbox(any(ClienteModel.class), anyString());
     }
 
 
     @Test
     public void clientList_DeveRetornarListaVazia_QuandoNaoHouverClientes() {
-        // Arrange
         when(repository.findAll()).thenReturn(Collections.emptyList());
-        
-        // Act
+
         List<ClienteDtoResponse> clientes = service.clientList();
-        
-        // Assert
+
         assertEquals(0, clientes.size());
         verify(repository, Mockito.times(1)).findAll();
     }
     
     @Test
     public void clientList_DeveRetornarListaDeClientes_QuandoExistiremClientes() {
-        // Arrange
         ClienteModel cliente1 = new ClienteModel();
         cliente1.setId(1L);
         cliente1.setNome("Daniel");
@@ -89,11 +86,9 @@ public class ClienteServiceTest {
         List<ClienteModel> clientesMock = Arrays.asList(cliente1, cliente2);
         
         when(repository.findAll()).thenReturn(clientesMock);
-        
-        // Act
+
         List<ClienteDtoResponse> resultado = service.clientList();
-        
-        // Assert
+
         assertEquals(2, resultado.size());
         assertEquals("Daniel", resultado.get(0).getNome());
         assertEquals("João", resultado.get(1).getNome());
