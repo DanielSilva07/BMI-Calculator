@@ -58,7 +58,7 @@ public class ClienteServiceTest {
 
 
     @Test
-    public void clientList_DeveRetornarListaVazia_QuandoNaoHouverClientes() {
+    public void deveRetornarListaVazia_QuandoNaoHouverClientes() {
         when(repository.findAll()).thenReturn(Collections.emptyList());
 
         List<ClienteDtoResponse> clientes = service.clientList();
@@ -68,7 +68,7 @@ public class ClienteServiceTest {
     }
     
     @Test
-    public void clientList_DeveRetornarListaDeClientes_QuandoExistiremClientes() {
+    public void deveRetornarListaDeClientes_QuandoExistiremClientes() {
         ClienteModel cliente1 = new ClienteModel();
         cliente1.setId(1L);
         cliente1.setNome("Daniel");
