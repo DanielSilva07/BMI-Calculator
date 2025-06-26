@@ -55,7 +55,7 @@ docker-compose down
 ## 🌐 Endpoints da API
 
 ### Calcular IMC
-- **POST** `/bmi/calculate`
+- **POST** `/bmi`
   - Calcula o IMC com base nos dados fornecidos
   
   **Exemplo de Requisição:**
@@ -79,7 +79,7 @@ docker-compose down
   ```
 
 ### Histórico de Cálculos
-- **GET** `/bmi/history`
+- **GET** `/bmi`
   - Retorna todo o histórico de cálculos armazenados
 
   **Resposta de Sucesso (200 OK):**
