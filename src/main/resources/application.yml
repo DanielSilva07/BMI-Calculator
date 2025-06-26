@@ -10,8 +10,8 @@ spring:
   # Configuração do Banco de Dados
   datasource:
     url: ${SPRING_DATASOURCE_URL}
-    username: ${POSTGRES_USER}
-    password: ${POSTGRES_PASSWORD}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       minimum-idle: 25
@@ -23,7 +23,7 @@ spring:
   # Configuração do JPA/Hibernate
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: false
     properties:
       hibernate:
