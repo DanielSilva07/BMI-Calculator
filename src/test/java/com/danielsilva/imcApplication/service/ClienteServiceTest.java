@@ -1,25 +1,36 @@
 package com.danielsilva.imcApplication.service;
 
+import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.fixtures.Fixtures;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.domain.ClienteModel;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.ConstraintViolationException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
+import static org.postgresql.hostchooser.HostRequirement.any;
 
 @ExtendWith(MockitoExtension.class)
 public class ClienteServiceTest {
@@ -95,4 +106,46 @@ public class ClienteServiceTest {
         verify(repository, Mockito.times(1)).findAll();
     }
 
+    @Test
+    void shouldNotSaveClientWhenNameIsBlank() {
+        var clienteDto = Fixtures.buildClienteDtoRequestIsBlank();
+        
+//        assertThrows(MethodArgumentNotValidException.class,
+//                ()-> service.save(clienteDto));
+//
+//        verify(repository, never()).save(any(ClienteModel.class));
+//        verify(outboxService, never()).saveToOutbox(any(ClienteModel.class), anyString());
+    }
+
+
+    @Test
+    void shouldDeleteByIdWhenIdExists() {
+        Long existingId = 1L;
+        ClienteModel entity = new ClienteModel();
+        when(repository.findById(existingId)).thenReturn(Optional.of(entity));
+        doNothing().when(repository).deleteById(existingId);
+
+        ResponseEntity<Object> response = service.deleteById(existingId);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(repository, times(1)).findById(existingId);
+        verify(repository, times(1)).deleteById(existingId);
+    }
+
+    @Test
+    void shouldReturnNotFoundWhenDeleteByIdWhenIdDoesNotExist() {
+        Long nonExistingId = 999L;
+        when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+
+        ResponseEntity<Object> response = service.deleteById(nonExistingId);
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        verify(repository, times(1)).findById(nonExistingId);
+        verify(repository, never()).deleteById(any());
+    }
 }
+
+
+
+
+

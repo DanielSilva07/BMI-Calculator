@@ -27,5 +27,14 @@ public class Fixtures {
         );
     }
 
+    public static ClienteDtoRequest buildClienteDtoRequestIsBlank(){
+        return new ClienteDtoRequest(
+                " ",
+                new BigDecimal("1.78"),
+                new BigDecimal("70.0"),
+                "joao.silva@example.com"
+        );
+    }
+
 
 }

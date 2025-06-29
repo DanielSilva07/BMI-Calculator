@@ -4,7 +4,6 @@ import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
 import com.danielsilva.imcApplication.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,7 +34,6 @@ class ClienteControllerTest {
 
 
     @Test
-    @DisplayName("deveSalvarUmNovoCliente")
     void deveSalvarUmNovoCliente() throws Exception {
         var body = """
                 {
@@ -56,9 +54,7 @@ class ClienteControllerTest {
     }
 
     @Test
-    @DisplayName("deveListarTodosClientes")
     public void deveRetornarListaDeClientes() throws Exception {
-        // Arrange
         ClienteDtoResponse expectedResponse = new ClienteDtoResponse(
                 1L,
                 "João Silva",
@@ -68,14 +64,63 @@ class ClienteControllerTest {
                 new BigDecimal("24.4")
         );
 
-        // Mock the service response
         List<ClienteDtoResponse> expectedList = List.of(expectedResponse);
         when(service.clientList()).thenReturn((expectedList));
 
-        // Act & Assert
         mockMvc.perform(MockMvcRequestBuilders.get("/bmi"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(expectedList)))
                 .andDo(MockMvcResultHandlers.print());
     }
+
+    @Test
+    void shouldNotSaveIsNameIsBlank() throws Exception {
+        var body = """
+                {
+                    "nome": "",
+                    "altura": 1.75,
+                    "peso": 70.0,
+                    "email": "joao.silva@example.com"
+                }
+                """;
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/bmi")
+                        .contentType("application/json")
+                        .content(body))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+    }
+
+
+    @Test
+    void shouldNotSaveIsNameIsNull() throws Exception {
+        var body = """
+                {
+                    "nome": null,
+                    "altura": 1.75,
+                    "peso": 70.0,
+                    "email": "joao.silva@example.com"
+                }
+                """;
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/bmi")
+                        .contentType("application/json")
+                        .content(body))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+    }
+
+    @Test
+    void shouldDeleteByIdWhenIdExists() throws Exception {
+
+        Long id = 1L;
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/bmi/{id}", id))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn();
+    }
+
 }
