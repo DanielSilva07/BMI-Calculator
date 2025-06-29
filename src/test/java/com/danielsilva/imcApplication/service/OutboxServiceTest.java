@@ -58,7 +58,7 @@ class OutboxServiceTest {
     }
 
     @Test
-    void saveToOutbox_ShouldSaveMessageToDatabase() throws Exception {
+    void shouldSaveMessageToDatabase() throws Exception {
         Object testPayload = new Object();
         when(objectMapper.writeValueAsString(any())).thenReturn("test-payload");
 
@@ -81,7 +81,7 @@ class OutboxServiceTest {
 
 
     @Test
-    void processOutbox_ShouldProcessMessageSuccessfully() throws Exception {
+    void shouldProcessMessageSuccessfully() throws Exception {
         Page<Outbox> page = new PageImpl<>(Collections.singletonList(outbox));
         when(outboxRepository.findByProcessedFalse(any(Pageable.class))).thenReturn(page);
 
@@ -105,7 +105,7 @@ class OutboxServiceTest {
     }
 
     @Test
-    void processOutbox_WhenKafkaFails_ShouldLogErrorAndNotUpdateOutbox() throws Exception {
+    void shouldWhenKafkaFailsShouldLogErrorAndNotUpdateOutbox() throws Exception {
         Page<Outbox> page = new PageImpl<>(Collections.singletonList(outbox));
         when(outboxRepository.findByProcessedFalse(any(Pageable.class))).thenReturn(page);
 
@@ -124,7 +124,7 @@ class OutboxServiceTest {
     }
 
     @Test
-    void processOutbox_WhenTimeoutOccurs_ShouldLogErrorAndNotUpdateOutbox() throws Exception {
+    void shouldWhenTimeoutOccursShouldLogErrorAndNotUpdateOutbox() throws Exception {
         Page<Outbox> page = new PageImpl<>(Collections.singletonList(outbox));
         when(outboxRepository.findByProcessedFalse(any(Pageable.class))).thenReturn(page);
 
@@ -144,7 +144,7 @@ class OutboxServiceTest {
     }
 
     @Test
-    void processOutbox_WhenNoMessages_ShouldNotCallKafka() {
+    void shouldWhenNoMessagesShouldNotCallKafka() {
         when(outboxRepository.findByProcessedFalse(any(Pageable.class)))
                 .thenReturn(Page.empty());
 
@@ -155,7 +155,7 @@ class OutboxServiceTest {
     }
 
     @Test
-    void processOutbox_WhenMultipleMessages_ShouldProcessAll() throws Exception {
+    void shouldWhenMultipleMessagesShouldProcessAll() throws Exception {
         Outbox outbox2 = new Outbox();
         outbox2.setId(UUID.randomUUID());
         outbox2.setPayload("another-payload");
