@@ -2,6 +2,7 @@ package com.danielsilva.imcApplication.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.io.Serial;
@@ -28,7 +29,7 @@ public class ClienteModel implements java.io.Serializable {
 
     private String email;
 
-    @NotNull(message = "Nome é obrigatório")
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
 
     @NotNull(message = "Altura é obrigatória")
@@ -43,10 +44,7 @@ public class ClienteModel implements java.io.Serializable {
 
 
     /**
-         * Calculates the Body Mass Index (BMI) for the client.
-         * <p>
          * The BMI is calculated using the formula: weight (kg) / height² (m²)
-         *
          * @throws ArithmeticException if height is zero (which would cause division by zero)
          */
         public void imcCalculator() {

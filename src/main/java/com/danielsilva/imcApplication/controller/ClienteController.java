@@ -2,6 +2,7 @@ package com.danielsilva.imcApplication.controller;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.domain.ClienteModel;
 import com.danielsilva.imcApplication.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -17,7 +18,7 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity<ClienteModel>save(@RequestBody ClienteDtoRequest clienteDtoRequest){
+    public ResponseEntity<ClienteModel>save(@RequestBody @Valid ClienteDtoRequest clienteDtoRequest){
         return ResponseEntity.status(201).body(service.save(clienteDtoRequest));
     }
 
