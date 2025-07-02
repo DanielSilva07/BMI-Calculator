@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,7 @@ public class ClienteService {
             clienteModel.setPeso(clienteDtoRequest.getPeso());
             clienteModel.setEmail(clienteDtoRequest.getEmail());
             clienteModel.imcCalculator();
+            clienteModel.setDataDeCriacao(LocalDateTime.now());
             ClienteModel savedCliente = repository.save(clienteModel);
             outboxService.saveToOutbox(savedCliente, savedCliente.getId().toString());
             logger.info("Cliente salvo e mensagem adicionada ao outbox");

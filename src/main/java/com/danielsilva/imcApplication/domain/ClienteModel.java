@@ -8,6 +8,7 @@ import lombok.*;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
 
 
 @Getter @Setter
@@ -41,6 +42,9 @@ public class ClienteModel implements java.io.Serializable {
     private BigDecimal peso;
 
     private BigDecimal imc;
+
+    @Column(name = "data_de_criacao")
+    private LocalDateTime dataDeCriacao;
 
 
     /**
