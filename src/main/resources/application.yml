@@ -71,3 +71,11 @@ logging:
 # Configuração do Kafka Consumer
 group:
   id: imc
+
+flayway:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver: org.postgresql.Driver
+    location: classpath:/db/migration

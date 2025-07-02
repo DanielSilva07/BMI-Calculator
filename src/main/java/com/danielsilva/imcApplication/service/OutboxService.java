@@ -60,8 +60,6 @@ public class OutboxService {
                 // Send message and wait for acknowledgment (synchronously)
                 SendResult<String, String> result = kafkaTemplate.send(TOPIC, outbox.getPayload())
                     .get(10, TimeUnit.SECONDS);
-                
-                // If we get here, the message was sent successfully
                 log.info("Message sent successfully to topic: {} with offset: {}", 
                     TOPIC, result.getRecordMetadata().offset());
                 
@@ -74,7 +72,6 @@ public class OutboxService {
                 
             } catch (Exception e) {
                 log.error("Failed to process outbox message: {}", outbox.getId(), e);
-                // The transaction will be rolled back if an exception occurs
             }
         });
     }
