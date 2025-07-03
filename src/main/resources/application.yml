@@ -30,11 +30,6 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-  # Configuração do Liquibase
-  liquibase:
-    enabled: true
-    change-log: classpath:/db/changelog/db.changelog-1.0.xml
-
   # Configuração do Redis
   redis:
     host: redis
@@ -72,10 +67,12 @@ logging:
 group:
   id: imc
 
-flayway:
-  datasource:
+
+  flyway:
     url: ${SPRING_DATASOURCE_URL}
-    username: ${DATABASE_USERNAME}
+    user: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-    driver: org.postgresql.Driver
-    location: classpath:/db/migration
+    driver-class-name: org.postgresql.Driver
+    locations: classpath:/db/migration
+    baseline-on-migrate: true
+
