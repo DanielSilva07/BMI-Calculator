@@ -1,9 +1,0 @@
-CREATE TABLE imc (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    email_from VARCHAR(255),
-    email VARCHAR(255),
-    nome VARCHAR(255) NOT NULL,
-    altura DECIMAL(19,2) NOT NULL,
-    peso DECIMAL(19,2) NOT NULL,
-    imc DECIMAL(19,2)
-);
