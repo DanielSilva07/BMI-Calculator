@@ -1,6 +1,8 @@
 spring:
   application:
     name: imcApplication
+  server:
+      port: 9000
 
   # Configuração do Cache
   cache:
@@ -42,9 +44,6 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-# Configuração do servidor
-server:
-  port: 9000
 
 # Configuração do serviço de e-mail
 ms:
