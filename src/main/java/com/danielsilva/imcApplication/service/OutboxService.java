@@ -1,8 +1,6 @@
 package com.danielsilva.imcApplication.service;
 
-import com.danielsilva.imcApplication.domain.ClienteModel;
 import com.danielsilva.imcApplication.domain.Outbox;
-import com.danielsilva.imcApplication.events.ClienteCriadoEvent;
 import com.danielsilva.imcApplication.infra.repository.OutboxRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,8 +17,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
