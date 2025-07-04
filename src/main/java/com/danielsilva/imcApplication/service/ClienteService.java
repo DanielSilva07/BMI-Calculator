@@ -1,8 +1,10 @@
 package com.danielsilva.imcApplication.service;
 
 import com.danielsilva.imcApplication.domain.ClienteModel;
+import com.danielsilva.imcApplication.domain.Outbox;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
+import com.danielsilva.imcApplication.events.ClienteCriadoEvent;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
@@ -51,16 +53,17 @@ public class ClienteService {
             clienteModel.imcCalculator();
             clienteModel.setDataDeCriacao(LocalDateTime.now());
             ClienteModel savedCliente = repository.save(clienteModel);
-            outboxService.saveToOutbox(savedCliente, savedCliente.getId().toString());
-            logger.info("Cliente salvo e mensagem adicionada ao outbox");
-            return savedCliente;
 
+            ClienteCriadoEvent event = new ClienteCriadoEvent(savedCliente);
+            outboxService.saveToOutbox(event, savedCliente.getId().toString());
+            logger.info("Cliente salvo e evento de criação registrado no outbox. ID: {}", savedCliente.getId());
+            return savedCliente;
         } catch (Exception e) {
             logger.error("Erro ao salvar cliente: {}", e.getMessage(), e);
             throw new RuntimeException("Erro ao processar o cadastro do cliente", e);
         }
-
    }
+
 
    @Cacheable(value = "listaDeClientes")
     public List<ClienteDtoResponse> clientList(){
