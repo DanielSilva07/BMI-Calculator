@@ -1,18 +1,17 @@
 package com.danielsilva.imcApplication.service;
 
 import com.danielsilva.imcApplication.domain.ClienteModel;
-import com.danielsilva.imcApplication.domain.Outbox;
 import com.danielsilva.imcApplication.dtos.ClienteDtoRequest;
 import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.events.ClienteCriadoEvent;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
