@@ -9,6 +9,8 @@ import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter @Setter
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "Imc")
+@Table(name = "imc")
 public class ClienteModel implements java.io.Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
