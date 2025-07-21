@@ -69,19 +69,15 @@ public class OutboxService {
         
         pendingMessages.forEach(outbox -> {
             try {
-                // Send message and wait for acknowledgment (synchronously)
                 SendResult<String, String> result = kafkaTemplate.send(TOPIC, outbox.getPayload())
                     .get(10, TimeUnit.SECONDS);
                 log.info("Message sent successfully to topic: {} with offset: {}", 
                     TOPIC, result.getRecordMetadata().offset());
-                
-                // Update outbox status in the same transaction
+
                 outbox.setProcessed(true);
                 outbox.setProcessedAt(LocalDateTime.now());
                 outboxRepository.save(outbox);
-                
                 log.info("Outbox message marked as processed: {}", outbox.getId());
-                
             } catch (Exception e) {
                 log.error("Failed to process outbox message: {}", outbox.getId(), e);
             }
