@@ -43,14 +43,6 @@ docker-compose logs -f
 docker-compose down
 ```
 
-### Sem Docker
-
-1. Certifique-se de ter um servidor PostgreSQL rodando
-2. Configure as variáveis de ambiente necessárias
-3. Execute:
-   ```bash
-   mvn spring-boot:run
-   ```
 
 ## 🌐 Endpoints da API
 
@@ -102,46 +94,16 @@ docker-compose down
   ]
   ```
 
-## 📊 Categorias de IMC
-
-| IMC | Categoria |
-|-----|-----------|
-| Abaixo de 18.5 | Abaixo do peso |
-| 18.5 - 24.9 | Peso normal |
-| 25.0 - 29.9 | Sobrepeso |
-| 30.0 - 34.9 | Obesidade Grau I |
-| 35.0 - 39.9 | Obesidade Grau II |
-| 40.0 ou mais | Obesidade Grau III |
 
 ## 📦 Estrutura do Projeto
 
-```
-imc-application/
-├── src/
-│   ├── main/
-│   │   ├── java/com/danielsilva/imcapplication/
-│   │   │   ├── config/       # Configurações do Spring
-│   │   │   ├── controller/   # Controladores REST
-│   │   │   ├── model/        # Entidades JPA
-│   │   │   ├── repository/   # Repositórios Spring Data
-│   │   │   ├── service/      # Lógica de negócios
-│   │   │   └── ImcApplication.java
-│   │   └── resources/
-│   │       ├── application.yml
-│   │  
-│   └── test/                 # Testes unitários e de integração
-├── docker/
-│   └── nginx/             # Configurações do NGINX
-├── env/                     # Arquivos de ambiente
-├── .gitignore
-├── docker-compose.yml
-├── Dockerfile
-└── pom.xml
-```
 
-## 🔍 Monitoramento e Logs
+<img width="934" height="1131" alt="Docker Compose Flow" src="https://github.com/user-attachments/assets/9d8bf2e6-0a8a-4c42-a2df-e339f2f50d19" />
 
-- **Logs da Aplicação**: Consulte os logs com `docker-compose logs -f imc`
+
+##  Teste de Stress
+
+[Gatling Stats - Create User2.pdf](https://github.com/user-attachments/files/21477485/Gatling.Stats.-.Create.User2.pdf)
 
 
 ## Componentes da Arquitetura
