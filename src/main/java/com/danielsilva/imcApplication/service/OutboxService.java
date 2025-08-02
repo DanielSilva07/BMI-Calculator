@@ -58,7 +58,7 @@ public class OutboxService {
      * Processes pending outbox messages and sends them to Kafka.
      * Runs every 5 seconds and processes messages in batches of 100.
      */
-    @Scheduled(fixedRate = 5000) // Runs every 5 seconds
+    @Scheduled(fixedRate = 60000) // Runs every 5 seconds
     @Transactional
     public void processOutbox() {
         // Process messages in batches of 100
