@@ -1,5 +1,4 @@
 package com.danielsilva.imcApplication.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -25,9 +24,6 @@ public class ClienteModel implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @JsonIgnore
-    private String emailFrom = "example@example.com";
 
     private String email;
 
@@ -64,6 +60,7 @@ public class ClienteModel implements java.io.Serializable {
                 ", nome='" + nome + '\'' +
                 ", altura=" + altura +
                 ", peso=" + peso +
+                ", dataDeCriacao=" + dataDeCriacao +
                 ", imc=" + imc +
                 '}';
     }
