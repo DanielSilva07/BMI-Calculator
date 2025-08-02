@@ -1,8 +1,9 @@
 package com.danielsilva.imcApplication.service;
 
-import com.danielsilva.imcApplication.fixtures.Fixtures;
-import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
 import com.danielsilva.imcApplication.domain.ClienteModel;
+import com.danielsilva.imcApplication.dtos.ClienteDtoResponse;
+import com.danielsilva.imcApplication.events.ClienteCriadoEvent;
+import com.danielsilva.imcApplication.fixtures.Fixtures;
 import com.danielsilva.imcApplication.infra.repository.ClienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,7 +58,7 @@ public class ClienteServiceTest {
         assertEquals(clienteModel.getImc(), resultado.getImc());
 
         verify(repository, times(1)).save(any(ClienteModel.class));
-        verify(outboxService, times(1)).saveToOutbox(any(ClienteModel.class), anyString());
+        verify(outboxService, times(1)).saveToOutbox(any(ClienteCriadoEvent.class), anyString());
     }
 
 

@@ -60,6 +60,9 @@ class OutboxServiceTest {
     @Test
     void shouldSaveMessageToDatabase() throws Exception {
         Object testPayload = new Object();
+        Outbox savedOutbox = new Outbox();
+
+        when(outboxRepository.save(any(Outbox.class))).thenReturn(savedOutbox);
         when(objectMapper.writeValueAsString(any())).thenReturn("test-payload");
 
         outboxService.saveToOutbox(testPayload, "123");

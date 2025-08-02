@@ -16,15 +16,14 @@ public class Fixtures {
     }
 
     public static ClienteModel buildClienteDtoResponse(){
-        return new ClienteModel(
-                1L,
-                "test",
-                "joao.silva@example.com",
-                "João Silva",
-                new BigDecimal("1.78"),
-                new BigDecimal("70.0"),
-                new BigDecimal("22.857142857142858")
-        );
+        return ClienteModel.builder()
+                .id(1L)
+                .email("joao.silva@example.com")
+                .nome("João Silva")
+                .altura(new BigDecimal("1.78"))
+                .peso(new BigDecimal("70.0"))
+                .imc(new BigDecimal("22.857142857142858"))
+                .build();
     }
 
     public static ClienteDtoRequest buildClienteDtoRequestIsBlank(){
