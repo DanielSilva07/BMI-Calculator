@@ -12,37 +12,6 @@ Este é um projeto de API RESTful para cálculo de IMC (Índice de Massa Corpora
 - **Containerização**: Docker e Docker Compose
 - **Gerenciamento de Dependências**: Maven
 
-## 📋 Pré-requisitos
-
-- Docker e Docker Compose instalados
-- Java 17 ou superior
-- Maven 3.6+ (opcional, para build local)
-
-## 🛠️ Configuração do Ambiente
-
-1. **Variáveis de Ambiente**
-   - Crie um arquivo `.env` na raiz do projeto ou use os arquivos na pasta `env/`
-   - Configure as variáveis necessárias para o banco de dados e outras dependências
-
-2. **Banco de Dados**
-   - O PostgreSQL será executado em um container Docker
-   - Os dados são persistidos em um volume Docker chamado `postgres-data`
-
-## 🚀 Executando o Projeto
-
-### Com Docker Compose (Recomendado)
-
-```bash
-# Construir e iniciar todos os serviços
-docker-compose up -d --build
-
-# Verificar logs
-docker-compose logs -f
-
-# Parar todos os serviços
-docker-compose down
-```
-
 
 ## 🌐 Endpoints da API
 
@@ -104,14 +73,6 @@ docker-compose down
 ##  Teste de Stress
 
 [Gatling Stats - Create User2.pdf](https://github.com/user-attachments/files/21477485/Gatling.Stats.-.Create.User2.pdf)
-
-
-## Componentes da Arquitetura
-
-
-![Mermaid Chart - Create complex, visual diagrams with text  A smarter way of creating diagrams -2025-06-20-001625](https://github.com/user-attachments/assets/761d1c94-00a3-4eaa-92d2-59c6ec36c20f)
-
-
 
 
 
