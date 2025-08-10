@@ -39,3 +39,6 @@ postgres-data
 env
 mvnw
 mvnw.cmd
+imcApplication.iml
+maven-wrapper.jar
+mvn
